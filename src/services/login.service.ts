@@ -6,6 +6,9 @@ import { ServiceResponse } from '../types/ServiceResponse';
 import { Token } from '../types/Token';
 
 async function verifyLogin(login: Login): Promise<ServiceResponse<Token>> {
+  if (!login.username || !login.password) {
+    return { status: 'INVALID_DATA', data: { message: '"username" and "password" are required' } };
+  }
   const foundUser = await UserModel.findOne({ where: { username: login.username } });
   
   if (!foundUser || !bcrypt.compareSync(login.password, foundUser.dataValues.password)) {
