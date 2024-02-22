@@ -9,9 +9,9 @@ const productRouter = Router();
 productRouter
   .post(
     '/products', 
-    validateNameProduct, 
-    validatePriceProduct, 
     validateUserIdProduct, 
+    validateNameProduct, 
+    validatePriceProduct,
     productController.createProduct,
   )
   .get('/products', productController.findAll);
